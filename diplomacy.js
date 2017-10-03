@@ -1,8 +1,8 @@
 window.onload = function () {
     var mapStyle = document.getElementById("map").style;
-    mapStyle.height = window.innerHeight - 2;
+    mapStyle.height = window.innerHeight;
     window.addEventListener("resize", function () {
-        mapStyle.height = window.innerHeight - 2;
+        mapStyle.height = window.innerHeight;
     });
     document.getElementById("map").addEventListener("click", addUnit);
     var divs = document.getElementsByTagName("div");
