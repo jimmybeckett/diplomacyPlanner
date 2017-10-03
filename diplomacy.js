@@ -36,7 +36,7 @@ function addUnit() {
     unit.setAttribute("y", svgP.y);
     var width;
     var height;
-    if (event.ctrlKey) {
+    if (event.ctrlKey || event.metaKey) {
         width = 25;
         height = 10;
     } else {
