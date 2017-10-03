@@ -1,0 +1,55 @@
+body {
+    margin: 0px;
+}
+
+#map {
+    display : block;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+
+svg text::selection {
+    background: none;
+}
+
+div {
+    background-color: red;
+    width: 10vh;
+    height: 10vh;
+    margin-bottom: 2vh;
+    margin-left: 2vh;
+}
+
+#england {
+    margin-top: 2vh;
+    background-color: darkblue;
+}
+
+#germany {
+    background-color: black;
+}
+
+#russia {
+    background-color: lightgrey;
+}
+
+#turkey {
+    background-color: yellow;
+}
+
+#austria {
+    background-color: red;
+}
+
+#italy {
+    background-color: green;
+}
+
+#france {
+    background-color: cornflowerblue;
+}
