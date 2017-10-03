@@ -11,7 +11,7 @@ window.onload = function () {
     }
 };
 
-var color = "transparent";
+var color = "";
 
 function changeColor(event) {
     color = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
@@ -25,7 +25,7 @@ function changeColor(event) {
 }
 
 function addUnit() {
-    if (event.target.x) return;
+    if (event.target.x || !color) return;
     var unit = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     var svg = document.getElementById("map");
     pt = svg.createSVGPoint();
