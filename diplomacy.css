@@ -12,6 +12,10 @@ body {
     top: 0;
 }
 
+.ocean {
+    fill : rgb(150, 205, 251);
+}
+
 
 svg text::selection {
     background: none;
@@ -52,4 +56,28 @@ div {
 
 #france {
     background-color: cornflowerblue;
+}
+
+select {
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+}
+
+button {
+    position: absolute;
+    top: 1.8vh;
+    width: 10vh;
+}
+
+#save {
+    right: 9vh;
+}
+
+#delete {
+    right: 19vh;
+}
+
+#clear {
+    right: 29vh;
 }

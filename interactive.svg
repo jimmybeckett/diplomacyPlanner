@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <script src="diplomacy.js"></script>
-    <link rel="stylesheet" type="text/css" href="diplomacy.css">
-    <meta name="google" value="notranslate">
-</head>
-
-<body>
-    <div id="england"></div>
-    <div id="germany"></div>
-    <div id="russia"></div>
-    <div id="turkey"></div>
-    <div id="austria"></div>
-    <div id="italy"></div>
-    <div id="france"></div>
-
-    <svg viewBox="0 0 610 560" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="map">
-
+<svg viewBox="0 0 610 560" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="map">
         <defs>
             <style type="text/css">
                 <![CDATA[ .l,
@@ -540,13 +521,3 @@
         </defs>
 
     </svg>
-
-    <select>
-        <option value="0">0</option>
-    <select>
-    <button id="save">Save</button>
-    <button id="delete">Delete</button>
-    <button id="clear">Reset</button>
-</body>
-
-</html>

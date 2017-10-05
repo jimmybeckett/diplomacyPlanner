@@ -9,9 +9,99 @@ window.onload = function () {
     for (var i = 0; i < divs.length; i++) {
         divs[i].addEventListener("click", changeColor);
     }
+    var selectedOption = 0;
+    var mapArray = [];
+    document.getElementsByTagName("select")[0].addEventListener("change", function (event) {
+        selectedOption = Number.parseInt(event.target.options[event.target.selectedIndex].value);
+        if (document.getElementsByTagName("select")[0].options.length - 1 !== selectedOption) {
+            clearMap();
+            for (var i = 0; i < mapArray[selectedOption].length; i++) {
+                console.log("append:");
+                console.log(mapArray[selectedOption][i]);
+                document.getElementById("map").appendChild(mapArray[selectedOption][i]);
+            }
+        }
+    });
+    document.getElementById("delete").addEventListener("click", function () {
+        mapArray.splice(selectedOption, 1);
+        console.log(mapArray);
+        clearMap();
+        for (var i = 0; i < mapArray[selectedOption - 1].length; i++) {
+            document.getElementById("map").appendChild(mapArray[selectedOption - 1][i]);
+        }
+        var options = Array.from(document.getElementsByTagName("select")[0].children);
+        var afterIndex = options.splice(selectedOption + 1, options.length - selectedOption);
+        options.splice(selectedOption, 1);
+        // for (var i = 0; i < afterIndex.length; i++) {
+        //     afterIndex[i].value--;
+        //     afterIndex[i].innerHTML = Number.parseInt(afterIndex[i].innerHTML) - 1;
+        //     console.log(afterIndex[i].innerHTML);
+        // }
+        options += afterIndex;
+    });
+    document.getElementById("save").addEventListener("click", function () {
+        save();
+        if (document.getElementsByTagName("select")[0].options.length - 1 === selectedOption) {
+            appendOption();
+        }
+        var options = document.getElementsByTagName("select")[0];
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].getAttribute("selected") === "selected") {
+                options[i].setAttribute("selected", "");
+            }
+        }
+        document.getElementsByTagName("select")[0].options[document.getElementsByTagName("select")[0].length - 1].setAttribute("selected", "selected");
+        selectedOption = Number.parseInt(document.getElementsByTagName("select")[0].options[document.getElementsByTagName("select")[0].selectedIndex].value);
+    });
+    document.getElementById("clear").addEventListener("click", function () {
+        clearMap();
+        for (var i = 0; i < mapArray[0].length; i++) {
+            document.getElementById("map").appendChild(mapArray[0][i]);
+        }
+        var temp = mapArray[0];
+        mapArray = [];
+        mapArray.push(temp);
+        var options = document.getElementsByTagName("select")[0];
+        for (var i = options.length - 1; i >= 1; i--) {
+            options[i].parentNode.removeChild(options[i]);
+        }
+        document.getElementsByTagName("select")[0].options[0].setAttribute("selected", "selected");
+        selectedOption = 0;
+        optionIndex = 0;
+    });
+    function save() {
+        var entry = [];
+        var mapElements = document.getElementById("map").children;
+        for (var i = 0; i < mapElements.length; i++) {
+            if (mapElements[i].className.baseVal.toString() === "unit") {
+                console.log(mapElements[i]);
+                entry.push(mapElements[i]);
+            }
+        }
+        mapArray[selectedOption] = entry;
+    }
 };
 
+
+
 var color = "";
+
+function clearMap() {
+    var mapElements = document.getElementById("map").children;
+    for (var i = mapElements.length - 1; i >= 0; i--) {
+        if (mapElements[i].className.baseVal.toString() === "unit") {
+            document.getElementById("map").removeChild(mapElements[i]);
+        }
+    }
+}
+
+var optionIndex = 0;
+function appendOption() {
+    var option = document.createElement("option");
+    option.setAttribute("value", ++optionIndex);
+    option.innerHTML = optionIndex;
+    document.getElementsByTagName("select")[0].appendChild(option);
+}
 
 function changeColor(event) {
     color = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
@@ -34,6 +124,7 @@ function addUnit() {
     var svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
     unit.setAttribute("x", svgP.x);
     unit.setAttribute("y", svgP.y);
+    unit.setAttribute("class", "unit");
     var width;
     var height;
     if (event.ctrlKey || event.metaKey) {
