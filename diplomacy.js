@@ -16,8 +16,6 @@ window.onload = function () {
         if (document.getElementsByTagName("select")[0].options.length - 1 !== selectedOption) {
             clearMap();
             for (var i = 0; i < mapArray[selectedOption].length; i++) {
-                // console.log("append:");
-                // console.log(mapArray[selectedOption][i]);
                 document.getElementById("map").appendChild(mapArray[selectedOption][i]);
                 mapArray[selectedOption][i].addEventListener("mousedown", removeUnit);
                 mapArray[selectedOption][i].addEventListener("mousedown", startDrag);
@@ -26,20 +24,22 @@ window.onload = function () {
     });
     document.getElementById("delete").addEventListener("click", function () {
         mapArray.splice(selectedOption, 1);
-        console.log(mapArray);
         clearMap();
         for (var i = 0; i < mapArray[selectedOption - 1].length; i++) {
-            document.getElementById("map").appendChild(mapArray[selectedOption - 1][i]);
+            document.getElementById("map").appendChild(mapArray[selectedOption + 1][i]);
         }
-        var options = Array.from(document.getElementsByTagName("select")[0].children);
-        var afterIndex = options.splice(selectedOption + 1, options.length - selectedOption);
-        options.splice(selectedOption, 1);
-        // for (var i = 0; i < afterIndex.length; i++) {
-        //     afterIndex[i].value--;
-        //     afterIndex[i].innerHTML = Number.parseInt(afterIndex[i].innerHTML) - 1;
-        //     console.log(afterIndex[i].innerHTML);
-        // }
-        options += afterIndex;
+        var myNode = document.getElementsByTagName("select")[0];
+        while (myNode.firstChild) {
+            myNode.removeChild(myNode.firstChild);
+        }
+        optionIndex = -1;
+        while(optionIndex < selectedOption + 2) {
+            var option = appendOption();
+            if (optionIndex == selectedOption) {
+                option.setAttribute("selected", "selected");
+            }
+            
+        }
     });
     document.getElementById("save").addEventListener("click", function () {
         save();
@@ -80,7 +80,6 @@ window.onload = function () {
             }
         }
         mapArray[selectedOption] = entry;
-        console.log(mapArray);
     }
 };
 
@@ -103,6 +102,7 @@ function appendOption() {
     option.setAttribute("value", ++optionIndex);
     option.innerHTML = optionIndex;
     document.getElementsByTagName("select")[0].appendChild(option);
+    return option;
 }
 
 function changeColor(event) {
@@ -164,7 +164,6 @@ function startDrag() { //start dragging
         svg.removeEventListener("mousemove", drag);
     });
     function drag() { //drag function
-        console.log("drag");
         var svg = document.getElementById("map");
         var oldSvgP = oldPt.matrixTransform(svg.getScreenCTM().inverse());
         var newPt = svg.createSVGPoint();
