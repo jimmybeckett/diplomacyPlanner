@@ -16,9 +16,11 @@ window.onload = function () {
         if (document.getElementsByTagName("select")[0].options.length - 1 !== selectedOption) {
             clearMap();
             for (var i = 0; i < mapArray[selectedOption].length; i++) {
-                console.log("append:");
-                console.log(mapArray[selectedOption][i]);
+                // console.log("append:");
+                // console.log(mapArray[selectedOption][i]);
                 document.getElementById("map").appendChild(mapArray[selectedOption][i]);
+                mapArray[selectedOption][i].addEventListener("mousedown", removeUnit);
+                mapArray[selectedOption][i].addEventListener("mousedown", startDrag);
             }
         }
     });
@@ -74,11 +76,11 @@ window.onload = function () {
         var mapElements = document.getElementById("map").children;
         for (var i = 0; i < mapElements.length; i++) {
             if (mapElements[i].className.baseVal.toString() === "unit") {
-                console.log(mapElements[i]);
-                entry.push(mapElements[i]);
+                entry.push(mapElements[i].cloneNode(false));
             }
         }
         mapArray[selectedOption] = entry;
+        console.log(mapArray);
     }
 };
 
@@ -137,30 +139,32 @@ function addUnit() {
     unit.setAttribute("width", width);
     unit.setAttribute("height", height);
     unit.setAttribute("fill", color);
+    unit.addEventListener("mousedown", removeUnit);
+    unit.addEventListener("mousedown", startDrag);
     document.getElementById("map").appendChild(unit);
+}
 
-    unit.addEventListener("mousedown", function () { //remove unit
+function removeUnit() { //remove unit
+    if (event.ctrlKey) {
+        event.target.parentNode.removeChild(event.target);
+    }
+}
+
+var oldPt;
+function startDrag() { //start dragging
+    if (event.ctrlKey) return;
+    var unit = event.target;
+    var svg = document.getElementById("map");
+    svg.addEventListener("mousemove", drag);
+    oldPt = svg.createSVGPoint();
+    oldPt.x = event.clientX;
+    oldPt.y = event.clientY;
+    unit.addEventListener("mouseup", function () { //stop dragging
         event.stopPropagation();
-        if (event.ctrlKey) {
-            event.target.parentNode.removeChild(event.target);
-        }
+        svg.removeEventListener("mousemove", drag);
     });
-
-    var oldPt;
-    unit.addEventListener("mousedown", function () { //start dragging
-        event.stopPropagation();
-        svg.addEventListener("mousemove", drag);
-        oldPt = svg.createSVGPoint();
-        oldPt.x = event.clientX;
-        oldPt.y = event.clientY;
-        unit.addEventListener("mouseup", function () { //stop dragging
-            event.stopPropagation();
-            svg.removeEventListener("mousemove", drag);
-        });
-    });
-
-
     function drag() { //drag function
+        console.log("drag");
         var svg = document.getElementById("map");
         var oldSvgP = oldPt.matrixTransform(svg.getScreenCTM().inverse());
         var newPt = svg.createSVGPoint();
@@ -172,5 +176,8 @@ function addUnit() {
         oldPt.x = event.clientX;
         oldPt.y = event.clientY;
     }
-}
+
+};
+
+
 
