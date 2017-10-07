@@ -1,8 +1,26 @@
+var slideArray = [];
+
+window.onload = function () {  //onload function
+    var map = document.getElementById("map");
+    map.style.height = window.innerHeight; //set height, width sets automatically in proportion to height
+    window.addEventListener("resize", function () {
+        console.log("height");
+        map.style.height = window.innerHeight;
+    });
+    map.addEventListener("click", addUnit);
+    for (let div of document.getElementsByTagName("div")) {
+        div.addEventListener("click", changeColor);
+    }
+    addButtonEventListeners(); //add event listeners for reset, delete, and clear buttons
+};
+
 var selectedOption = 0; //programmatically represents the option currently selected
+
 function setCurrentOption() { //set selectedOption to the currently selected option
     var select = document.getElementsByTagName("select")[0];
     selectedOption = Number.parseInt(select.options[select.selectedIndex].value);
 }
+
 function setOption(optionVal) { //set selectedOption to a specified option
     var options = Array.from(document.getElementsByTagName("select")[0].children);
     for (let el of options) {
@@ -14,30 +32,6 @@ function setOption(optionVal) { //set selectedOption to a specified option
         }
     }
     setCurrentOption();
-}
-
-var slideArray = [];
-
-window.onload = function () {  //onload function
-    var map = document.getElementById("map");
-    map.style.height = window.innerHeight; //set height, width sets automatically in proportion to height
-    map.addEventListener("resize", function () {
-        map.style.height = window.innerHeight;
-    });
-    map.addEventListener("click", addUnit);
-    for (let div of document.getElementsByTagName("div")) {
-        div.addEventListener("click", changeColor);
-    }
-    addButtonEventListeners(); //add event listeners for reset, delete, and clear buttons
-};
-
-function updateMap() { //removes all units, then adds units from the slide corresponding to the selected option
-    clearMap();
-    for (let el of slideArray[selectedOption]) {
-        el.addEventListener("mousedown", removeUnit); //add standard unit event listeners
-        el.addEventListener("mousedown", startDrag);
-        document.getElementById("map").appendChild(el);
-    }
 }
 
 function addButtonEventListeners() {
@@ -94,6 +88,16 @@ function clearMap() { //remove all units from the map
         if (children[i].className.baseVal.toString() === "unit") {
             document.getElementById("map").removeChild(children[i]);
         }
+    }
+}
+
+
+function updateMap() { //removes all units, then adds units from the slide corresponding to the selected option
+    clearMap();
+    for (let el of slideArray[selectedOption]) {
+        el.addEventListener("mousedown", removeUnit); //add standard unit event listeners
+        el.addEventListener("mousedown", startDrag);
+        document.getElementById("map").appendChild(el);
     }
 }
 
@@ -174,6 +178,3 @@ function startDrag() { //start dragging
         oldPt.y = event.clientY;
     }
 };
-
-
-
