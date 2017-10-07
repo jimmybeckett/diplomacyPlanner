@@ -11,79 +11,12 @@ window.onload = function () {
     }
     var selectedOption = 0;
     var mapArray = [];
-    document.getElementsByTagName("select")[0].addEventListener("change", function (event) {
-        selectedOption = Number.parseInt(event.target.options[event.target.selectedIndex].value);
-        if (document.getElementsByTagName("select")[0].options.length - 1 !== selectedOption) {
-            clearMap();
-            for (var i = 0; i < mapArray[selectedOption].length; i++) {
-                document.getElementById("map").appendChild(mapArray[selectedOption][i]);
-                mapArray[selectedOption][i].addEventListener("mousedown", removeUnit);
-                mapArray[selectedOption][i].addEventListener("mousedown", startDrag);
-            }
-        }
-    });
-    document.getElementById("delete").addEventListener("click", function () {
-        mapArray.splice(selectedOption, 1);
-        clearMap();
-        for (var i = 0; i < mapArray[selectedOption - 1].length; i++) {
-            document.getElementById("map").appendChild(mapArray[selectedOption + 1][i]);
-        }
-        var myNode = document.getElementsByTagName("select")[0];
-        while (myNode.firstChild) {
-            myNode.removeChild(myNode.firstChild);
-        }
-        optionIndex = -1;
-        while(optionIndex < selectedOption + 2) {
-            var option = appendOption();
-            if (optionIndex == selectedOption) {
-                option.setAttribute("selected", "selected");
-            }
-            
-        }
-    });
-    document.getElementById("save").addEventListener("click", function () {
-        save();
-        if (document.getElementsByTagName("select")[0].options.length - 1 === selectedOption) {
-            appendOption();
-        }
-        var options = document.getElementsByTagName("select")[0];
-        for (var i = 0; i < options.length; i++) {
-            if (options[i].getAttribute("selected") === "selected") {
-                options[i].setAttribute("selected", "");
-            }
-        }
-        document.getElementsByTagName("select")[0].options[document.getElementsByTagName("select")[0].length - 1].setAttribute("selected", "selected");
-        selectedOption = Number.parseInt(document.getElementsByTagName("select")[0].options[document.getElementsByTagName("select")[0].selectedIndex].value);
-    });
-    document.getElementById("clear").addEventListener("click", function () {
-        clearMap();
-        for (var i = 0; i < mapArray[0].length; i++) {
-            document.getElementById("map").appendChild(mapArray[0][i]);
-        }
-        var temp = mapArray[0];
-        mapArray = [];
-        mapArray.push(temp);
-        var options = document.getElementsByTagName("select")[0];
-        for (var i = options.length - 1; i >= 1; i--) {
-            options[i].parentNode.removeChild(options[i]);
-        }
-        document.getElementsByTagName("select")[0].options[0].setAttribute("selected", "selected");
-        selectedOption = 0;
-        optionIndex = 0;
-    });
-    function save() {
-        var entry = [];
-        var mapElements = document.getElementById("map").children;
-        for (var i = 0; i < mapElements.length; i++) {
-            if (mapElements[i].className.baseVal.toString() === "unit") {
-                entry.push(mapElements[i].cloneNode(false));
-            }
-        }
-        mapArray[selectedOption] = entry;
-    }
+   
 };
 
-
+function addUIEventListeners() {
+    
+}
 
 var color = "";
 
