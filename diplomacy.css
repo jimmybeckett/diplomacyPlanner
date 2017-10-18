@@ -21,41 +21,54 @@ svg text::selection {
     background: none;
 }
 
+#colorContainer {
+    margin-top: 2vh;
+    width: 50vh;
+}
+
+.colorRow {
+    width: 50vh;
+    height: 15vh;
+}
+
 div {
-    background-color: red;
-    width: 10vh;
-    height: 10vh;
+    width: 15vh;
+    height: 15vh;
     margin-bottom: 2vh;
     margin-left: 2vh;
+    line-height: 15vh;
+    text-align: center;
+    color: white;
+    float: left;
 }
 
 #england {
-    margin-top: 2vh;
-    background-color: darkblue;
+    background-color: #51518E;
 }
 
 #germany {
-    background-color: black;
+    background-color: #5d5a55;
 }
 
 #russia {
-    background-color: lightgrey;
+    background-color: #757d91;
 }
 
 #turkey {
-    background-color: yellow;
+    background-color: #b9a61c;
 }
 
 #austria {
-    background-color: red;
+    background-color: #9a6f6b;
 }
 
 #italy {
-    background-color: green;
+    background-color: #748d50;
 }
 
 #france {
-    background-color: cornflowerblue;
+    background-color: #6590b7;
+    margin-left: 9.5vh;
 }
 
 select {
@@ -70,14 +83,35 @@ button {
     width: 10vh;
 }
 
+button {
+    background-color: white;
+    border: 1px solid black;
+    height: 6vh;
+}
+
+select {
+    background-color: white;
+    border: 1px solid black;
+    height: 4vh;
+    margin-top: 1vh;
+}
+
+button:focus {
+    outline:0;
+}
+
+select:focus {
+    outline:0;
+}
+
 #save {
     right: 9vh;
 }
 
 #delete {
-    right: 19vh;
+    right: 20vh;
 }
 
 #reset {
-    right: 29vh;
+    right: 31vh;
 }

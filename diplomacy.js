@@ -4,12 +4,13 @@ window.onload = function () {  //onload function
     var map = document.getElementById("map");
     map.style.height = window.innerHeight; //set height, width sets automatically in proportion to height
     window.addEventListener("resize", function () {
-        console.log("height");
         map.style.height = window.innerHeight;
     });
     map.addEventListener("click", addUnit);
     for (let div of document.getElementsByTagName("div")) {
-        div.addEventListener("click", changeColor);
+        if (div.parentNode.getAttribute("class") === "colorRow") {
+            div.addEventListener("click", changeColor);
+        }
     }
     addButtonEventListeners(); //add event listeners for reset, delete, and clear buttons
 };
@@ -43,8 +44,12 @@ function addButtonEventListeners() {
     });
 
     document.getElementById("delete").addEventListener("click", function () { //delete a slide
-        slideArray.splice(selectedOption, 1); //remove the selected slide from the slide array
+        clickAnimation(event.target);
         var options = Array.from(document.getElementsByTagName("select")[0].children);
+        if (options.length === 1) {
+            return;
+        }
+        slideArray.splice(selectedOption, 1); //remove the selected slide from the slide array
         options[options.length - 1].parentNode.removeChild(options[options.length - 1]);
         setOption(selectedOption - 1);
         updateMap();
@@ -56,6 +61,7 @@ function addButtonEventListeners() {
             appendOption();
         }
         setOption(selectedOption + 1);
+        clickAnimation(event.target);
     });
 
     document.getElementById("reset").addEventListener("click", function () { //clear all slides except the 0th
@@ -67,7 +73,22 @@ function addButtonEventListeners() {
             options[i].parentNode.removeChild(options[i]);
         }
         optionIndex = 0; //so next time "save" is clicked the next option will be 1
+        clickAnimation(event.target);
     });
+
+    function clickAnimation(target) {
+        target.style.backgroundColor = "rgba(128, 128, 128, 0.5)";
+        var int = setInterval(fade, 10);
+        var opacity = 0.5;
+        function fade() {
+            target.style.backgroundColor = "rgba(128, 128, 128, " + opacity + ")";
+            opacity -= 0.01;
+            if (opacity <= 0) {
+                clearInterval(int);
+            }
+        }
+
+    }
 }
 
 function save() { //add a new slide to the slideArray
@@ -112,15 +133,29 @@ function appendOption() { //add a new option to the select list, increase the op
 function changeColor(event) { //change the color of units being placed
     color = window.getComputedStyle(event.target, null).getPropertyValue("background-color"); //set color to the color of the element clicked
     for (var div of document.getElementsByTagName("div")) { //set all divs to basic appearance
-        div.style.border = "";
-        div.style.marginLeft = "2vh";
+        if (div.parentNode.getAttribute("class") === "colorRow") {
+            div.style.border = "";
+            div.style.width = "15vh";
+            div.style.height = "15vh";
+            div.style.lineHeight = "15vh";
+            div.style.marginTop = "0vh";
+            if (div.getAttribute("id") === "france") {
+                div.style.marginLeft = "9.5vh";
+            } else {
+                div.style.marginLeft = "2vh";
+            }
+        }
     }
     event.target.style.border = "1px solid black"; //make the target div look fancy
-    event.target.style.marginLeft = "3vh";
+    event.target.style.width = "16vh";
+    event.target.style.height = "16vh";
+    event.target.style.lineHeight = "16vh";
+    event.target.style.marginLeft = (Number.parseInt(event.target.style.marginLeft) - .5) + "vh";
+    event.target.style.marginTop = (Number.parseInt(event.target.style.marginTop || 0) - .5) + "vh";
 }
 
 function addUnit() { //append a new unit to the map
-    if (event.target.x || !color) return; //if x is a rectange (event.target.x === true) or a color is not selected, then return
+    if (event.target.getAttribute("class") === "unit" || !color) return; //if x is a unit or a color is not selected, then return
     var unit = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     var svg = document.getElementById("map");
     pt = svg.createSVGPoint();
