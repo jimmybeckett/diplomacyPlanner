@@ -7,39 +7,43 @@ body {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2vh;
     left: 0;
     right: 0;
     top: 0;
+    width: 65vw;
 }
-
-.ocean {
-    fill : rgb(150, 205, 251);
-}
-
 
 svg text::selection {
     background: none;
 }
 
-#colorContainer {
-    margin-top: 2vh;
-    width: 50vh;
+#colorLeft {
+    margin-top: 2vw;
+    width: 15vw;
+    float: left;
+}
+
+#colorRight {
+    margin-top: 10.5vw;
+    width: 15vw;
+    float: right;
 }
 
 .colorRow {
-    width: 50vh;
-    height: 15vh;
+    height: 7vw;
+    width: 15vw;
+    display: flex;
+    justify-content: space-around;
 }
 
 div {
-    width: 15vh;
-    height: 15vh;
-    margin-bottom: 2vh;
-    margin-left: 2vh;
-    line-height: 15vh;
+    width: 7vw;
+    height: 7vw;
+    margin-bottom: 1vw;
+    line-height: 7vw;
     text-align: center;
     color: white;
-    float: left;
 }
 
 #england {
@@ -68,32 +72,28 @@ div {
 
 #france {
     background-color: #6590b7;
-    margin-left: 9.5vh;
 }
 
 select {
     position: absolute;
-    top: 2vh;
-    right: 2vh;
+    top: 2vw;
+    right: 2vw;
 }
 
 button {
     position: absolute;
-    top: 1.8vh;
-    width: 10vh;
-}
-
-button {
+    top: 1.8vw;
+    width: 7vw;
+    height: 3vw;
     background-color: white;
     border: 1px solid black;
-    height: 6vh;
 }
 
 select {
     background-color: white;
     border: 1px solid black;
-    height: 4vh;
-    margin-top: 1vh;
+    height: 2vw;
+    margin-top: .333333vw;
 }
 
 button:focus {
@@ -105,13 +105,13 @@ select:focus {
 }
 
 #save {
-    right: 9vh;
+    right: 6vw;
 }
 
 #delete {
-    right: 20vh;
+    right: 14vw;
 }
 
 #reset {
-    right: 31vh;
+    right: 22vw;
 }

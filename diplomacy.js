@@ -1,12 +1,7 @@
 var slideArray = [];
 
 window.onload = function () {  //onload function
-    var map = document.getElementById("map");
-    map.style.height = window.innerHeight; //set height, width sets automatically in proportion to height
-    window.addEventListener("resize", function () {
-        map.style.height = window.innerHeight;
-    });
-    map.addEventListener("click", addUnit);
+    document.getElementById("map").addEventListener("click", addUnit);
     for (let div of document.getElementsByTagName("div")) {
         if (div.parentNode.getAttribute("class") === "colorRow") {
             div.addEventListener("click", changeColor);
