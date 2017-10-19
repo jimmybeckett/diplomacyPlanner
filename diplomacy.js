@@ -130,23 +130,11 @@ function changeColor(event) { //change the color of units being placed
     for (var div of document.getElementsByTagName("div")) { //set all divs to basic appearance
         if (div.parentNode.getAttribute("class") === "colorRow") {
             div.style.border = "";
-            div.style.width = "15vh";
-            div.style.height = "15vh";
-            div.style.lineHeight = "15vh";
-            div.style.marginTop = "0vh";
-            if (div.getAttribute("id") === "france") {
-                div.style.marginLeft = "9.5vh";
-            } else {
-                div.style.marginLeft = "2vh";
-            }
+            div.style.opacity = "0.8";
         }
     }
     event.target.style.border = "1px solid black"; //make the target div look fancy
-    event.target.style.width = "16vh";
-    event.target.style.height = "16vh";
-    event.target.style.lineHeight = "16vh";
-    event.target.style.marginLeft = (Number.parseInt(event.target.style.marginLeft) - .5) + "vh";
-    event.target.style.marginTop = (Number.parseInt(event.target.style.marginTop || 0) - .5) + "vh";
+    event.target.style.opacity = "1";
 }
 
 function addUnit() { //append a new unit to the map
