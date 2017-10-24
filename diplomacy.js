@@ -1,10 +1,10 @@
 var slideArray = [];
 
-window.onload = function () {  //onload function
+window.onload = function () {  
     document.getElementById("map").addEventListener("click", addUnit);
     for (let div of document.getElementsByTagName("div")) {
         if (div.parentNode.getAttribute("class") === "colorRow") {
-            div.addEventListener("click", changeColor);
+            div.addEventListener("click", changeColor); //event listener for changing color divs
         }
     }
     addButtonEventListeners(); //add event listeners for reset, delete, and clear buttons

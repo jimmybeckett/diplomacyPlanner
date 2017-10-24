@@ -85,7 +85,7 @@ button {
     top: 1.8vw;
     width: 7vw;
     height: 3vw;
-    background-color: white;
+    background-color: rgba(128, 128, 128, 0 );
     border: 1px solid black;
 }
 
